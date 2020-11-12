@@ -17,6 +17,6 @@ function users_from_arr(arr){
 
 
 module.exports = {
-    users = users,
-    users_from_arr = users_from_arr
+    users,
+    users_from_arr
 }
