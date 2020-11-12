@@ -1,0 +1,16 @@
+{
+  "name": "network_counter",
+  "version": "1.0.0",
+  "description": "Count the amount of GET requests",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tom Meyers",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.1.3",
+    "redis": "^3.0.2"
+  }
+}

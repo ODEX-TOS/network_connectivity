@@ -1,0 +1,42 @@
+version: "3"
+services:
+  app:
+    build: .
+    volumes:
+      - "./src:/app"
+    depends_on:
+      - redis
+    networks:
+      - default
+      - web
+    labels:
+      - "traefik.enable=true"
+      # HTTPS Rules
+      - "traefik.http.routers.network_SSL.rule=Host(`network.odex.be`)"
+      - "traefik.http.routers.network_SSL.entrypoints=https"
+      - "traefik.http.routers.network_SSL.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.network_SSL.tls=true"
+      - "traefik.http.routers.network_SSL.middlewares=error-pages-middleware"
+      - "traefik.http.services.network_SSL.loadbalancer.server.port=8080"
+      # HTTP
+      - "traefik.http.routers.network.rule=Host(`network.odex.be`)"
+      - "traefik.http.middlewares.https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.network.entrypoints=http"
+      - "traefik.http.routers.network.middlewares=https-redirect"
+
+  redis:
+    image: "redis:alpine"
+    command: redis-server --appendonly yes --requirepass sOmE_sEcUrE_pAsS
+    ports:
+      - "6379:6379"
+    volumes:
+      - $PWD/redis-data:/data
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    networks:
+      - default
+
+networks:
+  default:
+  web:
+    external: true
