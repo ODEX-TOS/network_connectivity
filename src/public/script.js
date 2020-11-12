@@ -25,7 +25,7 @@ function getGraph(callback) {
             callback(JSON.parse(xmlHttp.responseText));
     }
 
-    xmlHttp.open( "GET", "http://network.odex.be/graph", true); 
+    xmlHttp.open( "GET", "https://network.odex.be/graph", true); 
     xmlHttp.send( null );
 }
 
