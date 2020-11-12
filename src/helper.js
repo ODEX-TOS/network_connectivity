@@ -8,7 +8,7 @@ function users(amount) {
 
 function users_from_arr(arr){
     let res = arr.map((x) => {
-        users(parseInt(x,10))
+        return users(x,10)
     });
     return res;
 }

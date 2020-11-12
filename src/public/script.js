@@ -13,7 +13,7 @@ function get(callback) {
             callback(JSON.parse(xmlHttp.responseText));
     }
 
-    xmlHttp.open( "GET", "https://network.odex.be/connection", true); 
+    xmlHttp.open( "GET", "http://localhost:8080/connection", true); 
     xmlHttp.send( null );
 }
 
@@ -25,7 +25,7 @@ function getGraph(callback) {
             callback(JSON.parse(xmlHttp.responseText));
     }
 
-    xmlHttp.open( "GET", "https://network.odex.be/graph", true); 
+    xmlHttp.open( "GET", "http://localhost:8080/graph", true); 
     xmlHttp.send( null );
 }
 
