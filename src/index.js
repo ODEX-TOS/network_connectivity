@@ -19,7 +19,15 @@ app.use("/connectivity/", apiLimiter);
 app.get('/connection', (_, res) => {
     db.get("connection", function(_, amount){
         res.send({
-            connections: helper.users(amount)
+            payload: helper.users(amount)
+        });
+    });
+});
+
+app.get('/connection/raw', (_, res) => {
+    db.get("connection", function(_, amount){
+        res.send({
+            payload: amount
         });
     });
 });
@@ -28,7 +36,7 @@ app.get('/connection', (_, res) => {
 app.get('/connectivity/check', (_, res) => {
     db.inc("connection", function(_, check){
         res.send({
-            result: check
+            payload: check
         });
     })
 });
@@ -37,7 +45,15 @@ app.get('/connectivity/check', (_, res) => {
 app.get('/graph', (_, res) => {
     db.get("graph", function(_, graph){
         res.send({
-            data: helper.users_from_arr(graph)
+            payload: helper.users_from_arr(graph)
+        });
+    })
+});
+
+app.get('/graph/raw', (_, res) => {
+    db.get("graph", function(_, graph){
+        res.send({
+            payload: graph
         });
     })
 });

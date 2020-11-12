@@ -32,7 +32,7 @@ function getGraph(callback) {
 function updateText(){
     get(function(result) {
         let counter = document.getElementById("num");
-        counter.innerText = result.connections;
+        counter.innerText = result.payload;
     });
 }
 
@@ -108,8 +108,8 @@ function draw_graph(data) {
 
 function updateGraph() {
     getGraph(function(result) {
-        console.log(result.data);
-        draw_graph(result.data);
+        console.log(result.payload);
+        draw_graph(result.payload);
     });
 }
 
