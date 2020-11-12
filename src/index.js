@@ -10,7 +10,17 @@ const apiLimiter = rateLimit({
     max: 100, // limit each IP to 100 requests per windowMs
     message:
     "This api endpoint should only be called from Network Manager"
-  });
+});
+
+
+// Find the amount of user from the NetworkManager requests
+// Each day 280 calls get made per host
+// Most devices usually run for less than a day (laptops for half a day)
+// Looking at the stats we average around 170 calls per day
+function users(amount) {
+    let result = Math.ceil(amount / 170);
+    return result
+}
 
 app.use("/connectivity/", apiLimiter);
 
@@ -18,7 +28,7 @@ app.use("/connectivity/", apiLimiter);
 app.get('/connection', (_, res) => {
     db.get("connection", function(_, amount){
         res.send({
-            connections: amount
+            connections: users(amount)
         });
     });
 });
@@ -42,7 +52,6 @@ app.get('/graph', (_, res) => {
 });
 
 // add the current connection value to the graph array
-db.add("graph", "connection", 144);
 db.add("graph", "connection", 144);
 
 setInterval(() => {

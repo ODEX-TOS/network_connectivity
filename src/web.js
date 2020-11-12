@@ -1,4 +1,3 @@
-
 const express = require('express');
 
 // Constants
@@ -18,7 +17,6 @@ function listen(){
     app.listen(PORT, HOST);
     console.log(`Running on http://${HOST}:${PORT}`);    
 }
-
 
 module.exports = {
     init,
