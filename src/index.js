@@ -32,5 +32,22 @@ app.get('/connectivity/check', (_, res) => {
     })
 });
 
+// the connectivity check from NetworkManager
+app.get('/graph', (_, res) => {
+    db.get("graph", function(_, graph){
+        res.send({
+            data: graph
+        });
+    })
+});
+
+// add the current connection value to the graph array
+db.add("graph", "connection", 144);
+db.add("graph", "connection", 144);
+
+setInterval(() => {
+    db.add("graph", "connection", 144);
+}, 10 * 60 * 1000);
+
 // start listening for webserver events
 serve.listen();
