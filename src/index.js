@@ -59,11 +59,12 @@ app.get('/graph/raw', (_, res) => {
 });
 
 // add the current connection value to the graph array
-db.add("graph", "connection", 144);
+db.add("graph", "connection", 24);
 
+// update the graph every hour
 setInterval(() => {
-    db.add("graph", "connection", 144);
-}, 10 * 60 * 1000);
+    db.add("graph", "connection", 24);
+}, 60 * 60 * 1000);
 
 // start listening for webserver events
 serve.listen();
