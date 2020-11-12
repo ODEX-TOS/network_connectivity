@@ -1,5 +1,5 @@
 const rateLimit = require("express-rate-limit");
-
+const helper = require("./helper.js");
 let serve = require("./web.js");
 let db = require("./data.js");
 
@@ -13,22 +13,13 @@ const apiLimiter = rateLimit({
 });
 
 
-// Find the amount of user from the NetworkManager requests
-// Each day 280 calls get made per host
-// Most devices usually run for less than a day (laptops for half a day)
-// Looking at the stats we average around 170 calls per day
-function users(amount) {
-    let result = Math.ceil(amount / 170);
-    return result
-}
-
 app.use("/connectivity/", apiLimiter);
 
 // check the connection from the browser
 app.get('/connection', (_, res) => {
     db.get("connection", function(_, amount){
         res.send({
-            connections: users(amount)
+            connections: helper.users(amount)
         });
     });
 });
@@ -46,7 +37,7 @@ app.get('/connectivity/check', (_, res) => {
 app.get('/graph', (_, res) => {
     db.get("graph", function(_, graph){
         res.send({
-            data: graph
+            data: helper.users_from_arr(graph)
         });
     })
 });

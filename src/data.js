@@ -1,4 +1,5 @@
 const redis = require("redis");
+
 const client = redis.createClient({
     host:"redis",
     password:"sOmE_sEcUrE_pAsS"
