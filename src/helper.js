@@ -3,13 +3,12 @@
 // Most devices usually run for less than a day (laptops for half a day)
 // Looking at the stats we average around 170 calls per day
 function users(amount) {
-    let result = Math.ceil(amount / 170);
-    return result
+    return Math.ceil(amount / 170) || 1;
 }
 
 function users_from_arr(arr){
     let res = arr.map((x) => {
-        users(x)
+        users(parseInt(x,10))
     });
     return res;
 }
