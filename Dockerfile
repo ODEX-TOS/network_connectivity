@@ -4,9 +4,8 @@ WORKDIR /app
 
 COPY src/package.json ./
 
-RUN npm install
-
+COPY entrypoint.sh /entrypoint.sh
 
 EXPOSE 8080
 
-CMD [ "node", "index.js" ]
+CMD [ "sh", "/entrypoint.sh" ]
