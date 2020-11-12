@@ -6,7 +6,7 @@ function get(callback) {
             callback(JSON.parse(xmlHttp.responseText));
     }
 
-    xmlHttp.open( "GET", "http://localhost:8080/connection", true); 
+    xmlHttp.open( "GET", "https://network.odex.be/connection", true); 
     xmlHttp.send( null );
 }
 
