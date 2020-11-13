@@ -117,7 +117,7 @@ function updateGraph() {
 setInterval(
     () => {
         updateText();
-    }, 1000
+    }, 1000 * 10
 )
 
 setInterval(
