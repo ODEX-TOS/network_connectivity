@@ -78,7 +78,10 @@ function draw_graph(data) {
                 display: false
             }],
             yAxes: [{
-                display: false
+                display: false,
+                ticks: {
+                    beginAtZero: true
+                }
             }]
         },
         elements: {
@@ -106,10 +109,16 @@ function draw_graph(data) {
     });
 }
 
+// remove th
+function chop(arr, length) {
+    arr.splice(0, arr.length - length);
+    return arr;
+}
+
 function updateGraph() {
     getGraph(function(result) {
-        console.log(result.payload);
-        draw_graph(result.payload);
+        console.log(result);
+        draw_graph(chop(result.payload, result.dailyLength));
     });
 }
 

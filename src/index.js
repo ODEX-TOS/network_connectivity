@@ -18,9 +18,11 @@ app.use("/connectivity/", apiLimiter);
 // check the connection from the browser
 app.get('/connection', (_, res) => {
     db.get("connection", function(_, amount){
-        res.send({
-            payload: helper.users(amount)
-        });
+        db.get("graph", function(_, graph){
+            res.send({
+                payload: helper.users(amount, graph[graph.length - helper.dailyLength])
+            });
+        })
     });
 });
 
@@ -45,7 +47,8 @@ app.get('/connectivity/check', (_, res) => {
 app.get('/graph', (_, res) => {
     db.get("graph", function(_, graph){
         res.send({
-            payload: helper.users_from_arr(graph)
+            payload: helper.users_from_arr(graph),
+            dailyLength: helper.dailyLength
         });
     })
 });
@@ -53,18 +56,19 @@ app.get('/graph', (_, res) => {
 app.get('/graph/raw', (_, res) => {
     db.get("graph", function(_, graph){
         res.send({
-            payload: graph
+            payload: graph,
+            dailyLength: helper.dailyLength
         });
     })
 });
 
 // add the current connection value to the graph array
-db.add("graph", "connection", 24);
+db.add("graph", "connection", helper.length);
 
 // update the graph every hour
 setInterval(() => {
-    db.add("graph", "connection", 24);
-}, 60 * 60 * 1000);
+    db.add("graph", "connection", helper.length);
+}, helper.updateInMs);
 
 // start listening for webserver events
 serve.listen();
