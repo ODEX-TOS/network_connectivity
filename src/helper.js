@@ -15,7 +15,7 @@ const length = 2 * dailyLength;
 // the begin option is the amount of connections one day ago
 // this way we know how many connections happened
 function users(amount, begin) {
-    if(begin == undefined || begin > 0)
+    if(begin == undefined || begin < 0)
         begin = 0;
     let dailyConnections = amount - begin;
     return Math.ceil(dailyConnections / 170) || 1;
