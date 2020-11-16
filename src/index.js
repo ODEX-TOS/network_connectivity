@@ -31,8 +31,8 @@ app.get('/connection/raw', (_, res) => {
         db.get("graph", function(_, graph){
             res.send({
                 payload: amount, 
-                // we send the old_payload as well since we derive the current amount of users from the current requests vs the amount of requests yesterday
-                old_playload: graph[graph.length - helper.dailyLength])
+                // we send the delta as well since we derive the current amount of users from the current requests vs the amount of requests yesterday
+                delta: amount - graph[graph.length - helper.dailyLength])
             });
         })
     });
