@@ -32,7 +32,7 @@ app.get('/connection/raw', (_, res) => {
             res.send({
                 payload: amount, 
                 // we send the delta as well since we derive the current amount of users from the current requests vs the amount of requests yesterday
-                delta: amount - graph[graph.length - helper.dailyLength])
+                delta: amount - graph[graph.length - helper.dailyLength]
             });
         })
     });
