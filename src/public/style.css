@@ -44,12 +44,12 @@ body:before {
 
 .card {
   position: relative;
-  top: calc(7.5vh - 2rem);
+  top: calc(6.25vh - 4rem);
   display: flex;
   justify-content: center;
   align-items: center;
   width: 50vw;
-  min-height: 70vh;
+  height: 75vh;
   background-color: #343f4f;
   overflow: hidden;
   box-shadow: 0 0 100px 0 black;
@@ -130,4 +130,20 @@ h2 {
   padding-bottom: 50%;
   position: relative;
   bottom: 0px;
+}
+
+footer {
+  position: absolute;
+  z-index: 20;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #343f4f;
+  color: white;
+  text-align: center;
+}
+
+footer a {
+  color: #0074f1;
 }

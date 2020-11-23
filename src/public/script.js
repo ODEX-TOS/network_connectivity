@@ -1,8 +1,7 @@
 var chart    = document.getElementById('chart').getContext('2d'),
-gradient = chart.createLinearGradient(0, 0, 0, 450);
-gradient.addColorStop(0, '#8100ccAA');
-gradient.addColorStop(0.5, '#8100ccCC');
-gradient.addColorStop(1, '#8100ccFF');
+gradient = chart.createLinearGradient(0, 0, 1000, 10);
+gradient.addColorStop(0, '#530274');
+gradient.addColorStop(1, '#ad00c8');
 
 
 function get(callback) {
