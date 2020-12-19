@@ -41,6 +41,7 @@ app.get('/connection/raw', (_, res) => {
 // the old connectivity check from NetworkManager
 app.get('/connectivity/check', (_, res) => {
     db.inc("connection", function(_, _){
+        res.setHeader("Content-Type", "text/plain");
         res.send("NetworkManager is online");
     })
 });
