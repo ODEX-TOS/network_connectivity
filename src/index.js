@@ -38,19 +38,21 @@ app.get('/connection/raw', (_, res) => {
     });
 });
 
-// the old connectivity check from NetworkManager
-app.get('/connectivity/check', (_, res) => {
+function increase_user_count(res) {
     db.inc("connection", function(_, _){
         res.set('content-type', 'text/plain');
         res.send("NetworkManager is online");
-    })
+    });
+}
+
+// the old connectivity check from NetworkManager
+app.get('/connectivity/check', (_, res) => {
+    increase_user_count(res);
 });
 
 // the connectivity check from NetworkManager
 app.get('/check_network_status.txt', (_, res) => {
-    db.inc("connection", function(_, _){
-        res.send("NetworkManager is online");
-    })
+    increase_user_count(res);
 });
 
 // the connectivity check from NetworkManager
