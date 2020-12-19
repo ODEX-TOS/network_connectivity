@@ -38,12 +38,17 @@ app.get('/connection/raw', (_, res) => {
     });
 });
 
-// the connectivity check from NetworkManager
+// the old connectivity check from NetworkManager
 app.get('/connectivity/check', (_, res) => {
-    db.inc("connection", function(_, check){
-        res.send({
-            payload: check
-        });
+    db.inc("connection", function(_, _){
+        res.send("NetworkManager is online");
+    })
+});
+
+// the connectivity check from NetworkManager
+app.get('/check_network_status.txt', (_, res) => {
+    db.inc("connection", function(_, _){
+        res.send("NetworkManager is online");
     })
 });
 
