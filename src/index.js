@@ -1,7 +1,10 @@
 const rateLimit = require("express-rate-limit");
+const geoip = require('geoip-lite');
+
 const helper = require("./helper.js");
 let serve = require("./web.js");
 let db = require("./data.js");
+
 
 let app = serve.init();
 
@@ -73,6 +76,20 @@ app.get('/graph/raw', (_, res) => {
         });
     })
 });
+
+app.get("/timezone", (req, res) => {
+    let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    let geo = geoip.lookup(ip);
+
+    // the line below should only be triggered when no publi ip is supplied eg 127.0.0.1 or 192.168.1.x
+    let timezone = "Europe/Brussels";
+    if (geo && geo.timezone) {
+        timezone = geo.timezone
+    }
+
+    console.log("Found timezone for user: " + timezone);
+    res.send(timezone);
+})
 
 // add the current connection value to the graph array
 db.add("graph", "connection", helper.length);
