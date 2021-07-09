@@ -91,6 +91,20 @@ app.get("/timezone", (req, res) => {
     res.send(timezone);
 })
 
+app.get("/country", (req, res) => {
+    let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    let geo = geoip.lookup(ip);
+
+    // the line below should only be triggered when no publi ip is supplied eg 127.0.0.1 or 192.168.1.x
+    let country = "Belgium";
+    if (geo && geo.country) {
+        country = geo.country
+    }
+
+    console.log("Found Country for user: " + country);
+    res.send(country);
+})
+
 // add the current connection value to the graph array
 db.add("graph", "connection", helper.length);
 
