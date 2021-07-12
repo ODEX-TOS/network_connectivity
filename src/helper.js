@@ -1,3 +1,5 @@
+const isoCountries = require("./countries.js").countries;
+
 // update the graph every hour
 const updateInMs = 60 * 60 * 1000;
 
@@ -29,7 +31,13 @@ function users_from_arr(arr){
     return res;
 }
 
-
+function getCountryName (countryCode) {
+    if (isoCountries.hasOwnProperty(countryCode)) {
+        return isoCountries[countryCode];
+    } else {
+        return countryCode;
+    }
+}
 
 
 module.exports = {
@@ -37,5 +45,6 @@ module.exports = {
     users_from_arr,
     updateInMs,
     length,
-    dailyLength
+    dailyLength,
+    getCountryName
 }
