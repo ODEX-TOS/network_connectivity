@@ -17,6 +17,7 @@ const apiLimiter = rateLimit({
 
 
 app.use("/connectivity/", apiLimiter);
+app.use("/check_network_status.txt", apiLimiter);
 
 // check the connection from the browser
 app.get('/connection', (_, res) => {
@@ -99,6 +100,20 @@ app.get("/country", (req, res) => {
     let country = "Belgium";
     if (geo && geo.country) {
         country = geo.country
+    }
+
+    console.log("Found Country for user: " + country);
+    res.send(country);
+})
+
+app.get("/country_name", (req, res) => {
+    let ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    let geo = geoip.lookup(ip);
+
+    // the line below should only be triggered when no publi ip is supplied eg 127.0.0.1 or 192.168.1.x
+    let country = "Belgium";
+    if (geo && geo.country) {
+        country = helper.getCountryName(geo.country)
     }
 
     console.log("Found Country for user: " + country);
